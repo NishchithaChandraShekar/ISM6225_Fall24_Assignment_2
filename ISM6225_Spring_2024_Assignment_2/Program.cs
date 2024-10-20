@@ -159,8 +159,7 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return "101010"; // Placeholder
+                return Convert.ToString(decimalNumber, 2);
             }
             catch (Exception)
             {
@@ -173,8 +172,19 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                int left = 0, right = nums.Length - 1;
+
+                while (left < right)
+                {
+                    int mid = left + (right - left) / 2;
+
+                    if (nums[mid] > nums[right])
+                        left = mid + 1;
+                    else
+                        right = mid;
+                }
+
+                return nums[left];
             }
             catch (Exception)
             {
@@ -187,8 +197,18 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return false; // Placeholder
+                if (x < 0) return false;
+
+                int original = x, reversed = 0;
+
+                while (x > 0)
+                {
+                    int pop = x % 10;
+                    x /= 10;
+                    reversed = reversed * 10 + pop;
+                }
+
+                return original == reversed;
             }
             catch (Exception)
             {
@@ -201,8 +221,19 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                if (n == 0) return 0;
+                if (n == 1) return 1;
+
+                int[] fib = new int[n + 1];
+                fib[0] = 0;
+                fib[1] = 1;
+
+                for (int i = 2; i <= n; i++)
+                {
+                     fib[i] = fib[i - 1] + fib[i - 2];
+                }
+
+                return fib[n];
             }
             catch (Exception)
             {
