@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Assignment_2
 {
@@ -9,26 +10,26 @@ namespace Assignment_2
         {
             // Question 1: Find Missing Numbers in Array
             Console.WriteLine("Question 1:");
-            int[] nums1 = { 4, 3, 2, 7, 8, 2, 3, 1 };
+            int[] nums1 = { 1, 1 };
             IList<int> missingNumbers = FindMissingNumbers(nums1);
             Console.WriteLine(string.Join(",", missingNumbers));
 
             // Question 2: Sort Array by Parity
             Console.WriteLine("Question 2:");
-            int[] nums2 = { 3, 1, 2, 4 };
+            int[] nums2 = { 3, 1, 2, 4, 6, 5 };
             int[] sortedArray = SortArrayByParity(nums2);
             Console.WriteLine(string.Join(",", sortedArray));
 
             // Question 3: Two Sum
             Console.WriteLine("Question 3:");
-            int[] nums3 = { 2, 7, 11, 15 };
-            int target = 9;
+            int[] nums3 = { 3, 2, 4 };
+            int target = 6;
             int[] indices = TwoSum(nums3, target);
             Console.WriteLine(string.Join(",", indices));
 
             // Question 4: Find Maximum Product of Three Numbers
             Console.WriteLine("Question 4:");
-            int[] nums4 = { 1, 2, 3, 4 };
+            int[] nums4 = { 6, 2, 3, 4, 5};
             int maxProduct = MaximumProduct(nums4);
             Console.WriteLine(maxProduct);
 
@@ -62,10 +63,21 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new List<int>(); // Placeholder
+            int n = nums.Length;
+            HashSet<int> seen = new HashSet<int>(nums);
+            List<int> missing = new List<int>();
+
+            for (int i = 1; i <= n; i++)
+            {
+                if (!seen.Contains(i))
+                {
+                    missing.Add(i);
+                }
             }
-            catch (Exception)
+
+            return missing;
+            }
+            catch(Exception)
             {
                 throw;
             }
@@ -76,10 +88,25 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+            int left = 0, right = nums.Length - 1;
+
+            while (left < right)
+            {
+                if (nums[left] % 2 > nums[right] % 2)
+                {
+                    // Swap nums[left] and nums[right]
+                    int temp = nums[left];
+                    nums[left] = nums[right];
+                    nums[right] = temp;
+                }
+
+                if (nums[left] % 2 == 0) left++;
+                if (nums[right] % 2 == 1) right--;
             }
-            catch (Exception)
+
+            return nums;
+            }
+            catch(Exception)
             {
                 throw;
             }
@@ -90,10 +117,23 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                Dictionary<int, int> map = new Dictionary<int, int>();
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int complement = target - nums[i];
+
+                if (map.ContainsKey(complement))
+                {
+                    return new int[] { map[complement], i };
+                }
+
+                map[nums[i]] = i;
             }
-            catch (Exception)
+
+            return new int[0];
+            }
+            catch(Exception)
             {
                 throw;
             }
@@ -104,8 +144,9 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                Array.Sort(nums);
+                int n = nums.Length;
+                return Math.Max(nums[n-1] * nums[n-2] * nums[n-3], nums[0] * nums[1] * nums[n-1]);
             }
             catch (Exception)
             {
